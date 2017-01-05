@@ -8,20 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		540CF61E1E1EC5C900CD9B16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540CF61D1E1EC5C900CD9B16 /* AppDelegate.swift */; };
-		540CF6201E1EC5C900CD9B16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540CF61F1E1EC5C900CD9B16 /* ViewController.swift */; };
 		540CF6231E1EC5C900CD9B16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 540CF6211E1EC5C900CD9B16 /* Main.storyboard */; };
 		540CF6251E1EC5C900CD9B16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 540CF6241E1EC5C900CD9B16 /* Assets.xcassets */; };
 		540CF6281E1EC5C900CD9B16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 540CF6261E1EC5C900CD9B16 /* LaunchScreen.storyboard */; };
+		540CF6301E1ECF8D00CD9B16 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540CF62F1E1ECF8D00CD9B16 /* SignInViewController.swift */; };
+		540CF6321E1ECFA100CD9B16 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540CF6311E1ECFA100CD9B16 /* SignUpViewController.swift */; };
+		540CF6341E1ECFB300CD9B16 /* RouteDrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540CF6331E1ECFB300CD9B16 /* RouteDrawViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		540CF61A1E1EC5C900CD9B16 /* FriendTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FriendTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		540CF61D1E1EC5C900CD9B16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		540CF61F1E1EC5C900CD9B16 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		540CF6221E1EC5C900CD9B16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		540CF6241E1EC5C900CD9B16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		540CF6271E1EC5C900CD9B16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		540CF6291E1EC5C900CD9B16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		540CF62F1E1ECF8D00CD9B16 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		540CF6311E1ECFA100CD9B16 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		540CF6331E1ECFB300CD9B16 /* RouteDrawViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDrawViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +59,9 @@
 			isa = PBXGroup;
 			children = (
 				540CF61D1E1EC5C900CD9B16 /* AppDelegate.swift */,
-				540CF61F1E1EC5C900CD9B16 /* ViewController.swift */,
+				540CF6331E1ECFB300CD9B16 /* RouteDrawViewController.swift */,
+				540CF62F1E1ECF8D00CD9B16 /* SignInViewController.swift */,
+				540CF6311E1ECFA100CD9B16 /* SignUpViewController.swift */,
 				540CF6211E1EC5C900CD9B16 /* Main.storyboard */,
 				540CF6241E1EC5C900CD9B16 /* Assets.xcassets */,
 				540CF6261E1EC5C900CD9B16 /* LaunchScreen.storyboard */,
@@ -136,8 +142,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				540CF6201E1EC5C900CD9B16 /* ViewController.swift in Sources */,
 				540CF61E1E1EC5C900CD9B16 /* AppDelegate.swift in Sources */,
+				540CF6321E1ECFA100CD9B16 /* SignUpViewController.swift in Sources */,
+				540CF6301E1ECF8D00CD9B16 /* SignInViewController.swift in Sources */,
+				540CF6341E1ECFB300CD9B16 /* RouteDrawViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +307,7 @@
 				540CF62E1E1EC5C900CD9B16 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
