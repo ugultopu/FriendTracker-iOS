@@ -7,6 +7,13 @@
 //
 
 import UIKit
+import Starscream
+
+protocol SignInViewControllerDelegate {
+    func add(overlay: FadingPolyline)
+    func remove(overlay: FadingPolyline)
+}
+
 
 class SignInViewController: UIViewController {
 

@@ -13,7 +13,7 @@
         <!--Sign In View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="SignInViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SignInViewController" customModule="FriendTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -73,7 +73,7 @@
         <!--Sign Up View Controller-->
         <scene sceneID="wen-oN-faQ">
             <objects>
-                <viewController id="YUh-Zw-lPV" customClass="SignUpViewController" sceneMemberID="viewController">
+                <viewController id="YUh-Zw-lPV" customClass="SignUpViewController" customModule="FriendTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hco-HD-Ab5"/>
                         <viewControllerLayoutGuide type="bottom" id="JqQ-GV-E15"/>
@@ -150,7 +150,7 @@
         <!--Route Draw View Controller-->
         <scene sceneID="Rq8-nj-BK9">
             <objects>
-                <viewController id="2id-aM-qat" customClass="RouteDrawViewController" sceneMemberID="viewController">
+                <viewController id="2id-aM-qat" customClass="RouteDrawViewController" customModule="FriendTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sFo-1R-nmf"/>
                         <viewControllerLayoutGuide type="bottom" id="ZyQ-dP-H6B"/>
