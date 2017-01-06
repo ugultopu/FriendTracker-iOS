@@ -1,12 +1,18 @@
 PODS:
+  - Alamofire (4.0.1)
   - Starscream (2.0.1)
+  - SwiftyJSON (3.1.1)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.0)
   - Starscream (~> 2.0.0)
+  - SwiftyJSON
 
 SPEC CHECKSUMS:
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
   Starscream: ce7a202d95615bd4113bc5a0f1932f1db8c808a4
+  SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
 
-PODFILE CHECKSUM: 41ad204ad9360cb270a00c8d58d96b991a9d4a36
+PODFILE CHECKSUM: d2aee7e046b6e2f43d5fc30f89a95680f3bb98f0
 
 COCOAPODS: 1.1.1

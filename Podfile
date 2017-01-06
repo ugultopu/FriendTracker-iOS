@@ -6,6 +6,8 @@ target 'FriendTracker' do
   use_frameworks!
 
   # Pods for FriendTracker
+  pod 'Alamofire', '~> 4.0'
+  pod 'SwiftyJSON'
   pod 'Starscream', '~> 2.0.0'
 
 end

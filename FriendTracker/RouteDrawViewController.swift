@@ -10,6 +10,8 @@ import UIKit
 
 class RouteDrawViewController: UIViewController {
 
+    var sessionid = ""
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
