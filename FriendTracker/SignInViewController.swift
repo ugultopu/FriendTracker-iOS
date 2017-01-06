@@ -10,11 +10,6 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-protocol SignInViewControllerDelegate {
-    func add(overlay: FadingPolyline)
-    func remove(overlay: FadingPolyline)
-}
-
 class SignInViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!

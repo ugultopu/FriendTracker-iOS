@@ -16,6 +16,8 @@
 		540CF6341E1ECFB300CD9B16 /* RouteDrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540CF6331E1ECFB300CD9B16 /* RouteDrawViewController.swift */; };
 		540CF6361E1ED4E600CD9B16 /* FadingPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540CF6351E1ED4E600CD9B16 /* FadingPolyline.swift */; };
 		540CF6381E1ED53400CD9B16 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540CF6371E1ED53400CD9B16 /* Location.swift */; };
+		540CF63F1E20114600CD9B16 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540CF63E1E20114600CD9B16 /* User.swift */; };
+		540CF6411E20196400CD9B16 /* FadingPolylineRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540CF6401E20196400CD9B16 /* FadingPolylineRenderer.swift */; };
 		EA99A9B7D9ABD59FADF5D661 /* Pods_FriendTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 733D8B0A98DE4059EE6C868B /* Pods_FriendTracker.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +35,8 @@
 		540CF6331E1ECFB300CD9B16 /* RouteDrawViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDrawViewController.swift; sourceTree = "<group>"; };
 		540CF6351E1ED4E600CD9B16 /* FadingPolyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadingPolyline.swift; sourceTree = "<group>"; };
 		540CF6371E1ED53400CD9B16 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		540CF63E1E20114600CD9B16 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		540CF6401E20196400CD9B16 /* FadingPolylineRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadingPolylineRenderer.swift; sourceTree = "<group>"; };
 		733D8B0A98DE4059EE6C868B /* Pods_FriendTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FriendTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -95,6 +99,8 @@
 			children = (
 				540CF6351E1ED4E600CD9B16 /* FadingPolyline.swift */,
 				540CF6371E1ED53400CD9B16 /* Location.swift */,
+				540CF63E1E20114600CD9B16 /* User.swift */,
+				540CF6401E20196400CD9B16 /* FadingPolylineRenderer.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -234,9 +240,11 @@
 				540CF61E1E1EC5C900CD9B16 /* AppDelegate.swift in Sources */,
 				540CF6321E1ECFA100CD9B16 /* SignUpViewController.swift in Sources */,
 				540CF6361E1ED4E600CD9B16 /* FadingPolyline.swift in Sources */,
+				540CF6411E20196400CD9B16 /* FadingPolylineRenderer.swift in Sources */,
 				540CF6301E1ECF8D00CD9B16 /* SignInViewController.swift in Sources */,
 				540CF6381E1ED53400CD9B16 /* Location.swift in Sources */,
 				540CF6341E1ECFB300CD9B16 /* RouteDrawViewController.swift in Sources */,
+				540CF63F1E20114600CD9B16 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

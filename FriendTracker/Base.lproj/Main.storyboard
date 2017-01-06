@@ -179,6 +179,9 @@
                             <constraint firstItem="PHv-Bx-NUi" firstAttribute="leading" secondItem="cfV-oB-FoR" secondAttribute="leading" id="yvs-fs-DuH"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="PHv-Bx-NUi" id="Vmn-hR-Hff"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5sd-LY-rGa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
