@@ -91,7 +91,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ni0-oG-qNM">
-                                <rect key="frame" x="16" y="219" width="343" height="230.5"/>
+                                <rect key="frame" x="16" y="204" width="343" height="260.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="906-1e-cZd" userLabel="Sign Up Label">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
@@ -129,15 +129,24 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eEm-gB-rxM" userLabel="Password Text Field">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eEm-gB-rxM" userLabel="Password0 Text Field">
                                         <rect key="frame" x="0.0" y="170.5" width="343" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KTb-mg-Qun" userLabel="Sign Up Button">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password (again)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M2r-cP-0Gb" userLabel="Password1 Text Field">
                                         <rect key="frame" x="0.0" y="200.5" width="343" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KTb-mg-Qun" userLabel="Sign Up Button">
+                                        <rect key="frame" x="0.0" y="230.5" width="343" height="30"/>
                                         <state key="normal" title="Sign Up"/>
+                                        <connections>
+                                            <action selector="onClickSignUpButton:" destination="YUh-Zw-lPV" eventType="touchUpInside" id="r8O-Yn-AZ0"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -150,6 +159,16 @@
                             <constraint firstItem="Ni0-oG-qNM" firstAttribute="leading" secondItem="1e8-F2-2KG" secondAttribute="leadingMargin" id="e4N-El-nwh"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="emailAddressTextField" destination="ZdJ-UU-bkX" id="eRV-gT-2kV"/>
+                        <outlet property="firstNameTextField" destination="NMa-ac-1r8" id="LBm-14-jce"/>
+                        <outlet property="lastNameTextField" destination="B5j-WS-xUx" id="Zvi-qo-XBU"/>
+                        <outlet property="password0TextField" destination="eEm-gB-rxM" id="bjj-dd-uVr"/>
+                        <outlet property="password1TextField" destination="M2r-cP-0Gb" id="xdF-ia-vQu"/>
+                        <outlet property="phoneNumberTextField" destination="42I-p0-eFP" id="sxH-Mj-hgS"/>
+                        <outlet property="usernameTextField" destination="I2a-u5-OCy" id="NQa-34-Tv8"/>
+                        <segue destination="2id-aM-qat" kind="show" identifier="ShowRouteDrawView" id="WpP-Rl-gUm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bcO-2K-4QC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -188,4 +207,7 @@
             <point key="canvasLocation" x="1583" y="36"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="WpP-Rl-gUm"/>
+    </inferredMetricsTieBreakers>
 </document>
