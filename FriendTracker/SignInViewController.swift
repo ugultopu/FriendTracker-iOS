@@ -14,6 +14,9 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    let sessionManager = SessionManager(serverTrustPolicyManager: ServerTrustPolicyManager(policies: ["localhost": .disableEvaluation])
+    )
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,7 +50,7 @@ class SignInViewController: UIViewController {
                 "password": password
             ]
             
-            Alamofire.request("http://localhost:8000/login/", method: .post, parameters: parameters).responseJSON { response in
+            sessionManager.request("https://localhost:8443/login/", method: .post, parameters: parameters).responseJSON { response in
                 switch response.result {
                 case .success(let data):
                     let json = JSON(data)
