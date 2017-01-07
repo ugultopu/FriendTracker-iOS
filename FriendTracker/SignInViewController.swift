@@ -14,6 +14,7 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    // TODO: Remove the following line on production. (That is, when you get your certificate signed by a CA (certificate authority).
     let sessionManager = SessionManager(serverTrustPolicyManager: ServerTrustPolicyManager(policies: ["localhost": .disableEvaluation])
     )
 

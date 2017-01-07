@@ -27,7 +27,9 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         mapView.delegate = self
-        socket = WebSocket(url: URL(string: "ws://localhost:8000/location/?session_key=\(sessionid)")!)
+        socket = WebSocket(url: URL(string: "wss://localhost:8443/location/?session_key=\(sessionid)")!)
+        // TODO: Remove the following line on production. (That is, when you get your certificate signed by a CA (certificate authority).
+        socket.disableSSLCertValidation = true
         socket.delegate = self
         socket.connect()
     }
