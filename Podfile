@@ -9,5 +9,6 @@ target 'FriendTracker' do
   pod 'Alamofire', '~> 4.0'
   pod 'SwiftyJSON'
   pod 'Starscream', '~> 2.0.0'
+  pod 'SwiftValidator', :git => 'https://github.com/ugultopu/SwiftValidator.git', :branch => 'master'
 
 end
