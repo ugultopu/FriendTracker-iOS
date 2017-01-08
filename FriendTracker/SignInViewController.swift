@@ -18,8 +18,7 @@ class SignInViewController: UIViewController, ValidationDelegate {
     let validator = Validator()
     
     // TODO: Remove the following line on production. (That is, when you get your certificate signed by a CA (certificate authority).
-    let sessionManager = SessionManager(serverTrustPolicyManager: ServerTrustPolicyManager(policies: ["localhost": .disableEvaluation])
-    )
+    static let sessionManager = SessionManager(serverTrustPolicyManager: ServerTrustPolicyManager(policies: ["localhost": .disableEvaluation]) )
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +55,10 @@ class SignInViewController: UIViewController, ValidationDelegate {
         let username = usernameTextField.text!
         let password = passwordTextField.text!
         
+        SignInViewController.signIn(username: username, password: password, view: self)
+    }
+    
+    static func signIn(username: String, password: String, view: UIViewController) {
         let parameters: Parameters = [
             "username": username,
             "password": password
@@ -70,25 +73,26 @@ class SignInViewController: UIViewController, ValidationDelegate {
                 case "Success":
                     // TODO: Put username and password into keychain
                     let sessionid = json["sessionid"].stringValue
-                    self.performSegue(withIdentifier: "ShowRouteDrawView", sender: sessionid)
+                    view.performSegue(withIdentifier: "ShowRouteDrawView", sender: sessionid)
                     break
                 case "Cannot authenticate":
-                    self.alert(title: "Sign In Failed", message: "The server couldn't authenticate you.")
+                    view.alert(title: "Sign In Failed", message: "The server couldn't authenticate you.")
                     break
                 case "Cannot log in":
-                    self.alert(title: "Sign In Failed", message: "The server couldn't log you in.")
+                    view.alert(title: "Sign In Failed", message: "The server couldn't log you in.")
                     break
                 case "Empty session key":
-                    self.alert(title: "Sign In Failed", message: "Session key is empty.")
+                    // FIXME: Understand why does the server sometimes return an empty session key and fix it on the server side.
+                    signIn(username: username, password: password, view: view)
                     break
                 default:
-                    self.alert(title: "Sign In Failed", message: "Sign in has failed for an unknown reason.")
+                    view.alert(title: "Sign In Failed", message: "Sign in has failed for an unknown reason.")
                     break
                 }
                 break
             case .failure(let error):
                 // TODO: Handle error here
-                self.alert(title: "Server Error", message: "The server has returned a non 200 response.")
+                view.alert(title: "Server Error", message: "The server has returned a non 200 response.")
                 print(error)
                 break
             }

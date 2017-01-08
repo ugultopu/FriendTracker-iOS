@@ -81,18 +81,10 @@ class SignUpViewController: UIViewController, ValidationDelegate {
                 let status = json["status"]
                 switch status {
                 case "Success":
-                    // TODO: Put username and password into keychain
-                    let sessionid = json["sessionid"].stringValue
-                    self.performSegue(withIdentifier: "ShowRouteDrawView", sender: sessionid)
+                    SignInViewController.signIn(username: username, password: password, view: self)
                     break
-                case "Cannot authenticate":
-                    self.alert(title: "Sign Up Failed", message: "The server couldn't authenticate you.")
-                    break
-                case "Cannot log in":
-                    self.alert(title: "Sign Up Failed", message: "The server couldn't log you in.")
-                    break
-                case "Empty session key":
-                    self.alert(title: "Sign Up Failed", message: "Session key is empty.")
+                case "Cannot create user":
+                    self.alert(title: "Sign Up Failed", message: "The server couldn't create a user.")
                     break
                 default:
                     self.alert(title: "Sign Up Failed", message: "Sign up has failed for an unknown reason.")
