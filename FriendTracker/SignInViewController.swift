@@ -66,16 +66,23 @@ class SignInViewController: UIViewController, ValidationDelegate {
             case .success(let data):
                 let json = JSON(data)
                 let status = json["status"]
-                // TODO: Use a boolean for the response status. This way, your switch case statement will be understandable, like the above switch case statement of Alamofire.
                 switch status {
-                case 0:
+                case "Success":
                     // TODO: Put username and password into keychain
                     let sessionid = json["sessionid"].stringValue
                     self.performSegue(withIdentifier: "ShowRouteDrawView", sender: sessionid)
                     break
+                case "Cannot authenticate":
+                    self.alert(title: "Sign In Failed", message: "The server couldn't authenticate you.")
+                    break
+                case "Cannot log in":
+                    self.alert(title: "Sign In Failed", message: "The server couldn't log you in.")
+                    break
+                case "Empty session key":
+                    self.alert(title: "Sign In Failed", message: "Session key is empty.")
+                    break
                 default:
-                    // TODO: Return meaningful status codes from back end and display meaningful error messages to the user.
-                    self.alert(title: "Sign In Failed", message: "Sign in has failed for an unknown reason")
+                    self.alert(title: "Sign In Failed", message: "Sign in has failed for an unknown reason.")
                     break
                 }
                 break
