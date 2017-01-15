@@ -106,7 +106,10 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedAlways {
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+            locationManager.pausesLocationUpdatesAutomatically = true
+            locationManager.activityType = CLActivityType.fitness
+            locationManager.allowsBackgroundLocationUpdates = true
             locationManager.startUpdatingLocation()
         }
     }

@@ -11,7 +11,7 @@ import MapKit
 
 class FadingPolylineRenderer: MKOverlayRenderer {
 
-    static let earliestDrawableTimeAmount = Double(60 * 1)   // 60 seconds * 1 = 1 minutes
+    static let earliestDrawableTimeAmount = Double(60 * 30)   // 60 seconds * 30 = 30 minutes
 
     override func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
         let fadingPolyline = overlay as! FadingPolyline
