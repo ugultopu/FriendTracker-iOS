@@ -19,6 +19,7 @@
 		540CF63F1E20114600CD9B16 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540CF63E1E20114600CD9B16 /* User.swift */; };
 		540CF6411E20196400CD9B16 /* FadingPolylineRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540CF6401E20196400CD9B16 /* FadingPolylineRenderer.swift */; };
 		540CF6451E21953400CD9B16 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540CF6441E21953400CD9B16 /* Utilities.swift */; };
+		54A208671E2B63CB001D5ADC /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A208661E2B63CB001D5ADC /* Config.swift */; };
 		EA99A9B7D9ABD59FADF5D661 /* Pods_FriendTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 733D8B0A98DE4059EE6C868B /* Pods_FriendTracker.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		540CF63E1E20114600CD9B16 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		540CF6401E20196400CD9B16 /* FadingPolylineRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadingPolylineRenderer.swift; sourceTree = "<group>"; };
 		540CF6441E21953400CD9B16 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		54A208661E2B63CB001D5ADC /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		733D8B0A98DE4059EE6C868B /* Pods_FriendTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FriendTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -104,6 +106,7 @@
 				540CF63E1E20114600CD9B16 /* User.swift */,
 				540CF6401E20196400CD9B16 /* FadingPolylineRenderer.swift */,
 				540CF6441E21953400CD9B16 /* Utilities.swift */,
+				54A208661E2B63CB001D5ADC /* Config.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				540CF6301E1ECF8D00CD9B16 /* SignInViewController.swift in Sources */,
 				540CF6381E1ED53400CD9B16 /* Location.swift in Sources */,
 				540CF6451E21953400CD9B16 /* Utilities.swift in Sources */,
+				54A208671E2B63CB001D5ADC /* Config.swift in Sources */,
 				540CF6341E1ECFB300CD9B16 /* RouteDrawViewController.swift in Sources */,
 				540CF63F1E20114600CD9B16 /* User.swift in Sources */,
 			);

@@ -23,7 +23,7 @@ class SignUpViewController: UIViewController, ValidationDelegate {
     let validator = Validator()
     
     // TODO: Remove the following line on production. (That is, when you get your certificate signed by a CA (certificate authority).
-    let sessionManager = SessionManager(serverTrustPolicyManager: ServerTrustPolicyManager(policies: ["localhost": .disableEvaluation])
+    let sessionManager = SessionManager(serverTrustPolicyManager: ServerTrustPolicyManager(policies: ["\(host)": .disableEvaluation])
     )
     
     override func viewDidLoad() {
@@ -74,7 +74,7 @@ class SignUpViewController: UIViewController, ValidationDelegate {
             "password": password
         ]
         
-        sessionManager.request("https://localhost:8443/register/", method: .post, parameters: parameters).responseJSON { response in
+        sessionManager.request("https://\(host):8443/register/", method: .post, parameters: parameters).responseJSON { response in
             switch response.result {
             case .success(let data):
                 let json = JSON(data)
