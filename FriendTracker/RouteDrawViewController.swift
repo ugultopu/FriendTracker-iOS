@@ -12,11 +12,15 @@ import CoreLocation
 import Alamofire
 import SwiftyJSON
 import Starscream
+import SwiftValidator
 
-class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, WebSocketDelegate {
+class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, ValidationDelegate, WebSocketDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var followTextField: UITextField!
+    
     let locationManager = CLLocationManager()
+    let validator = Validator()
     var sessionid = ""
     var socket = WebSocket(url: URL(string: "ws://\(host)")!)
     var users = [UserID: User]()
@@ -24,6 +28,7 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        validator.registerField(followTextField, rules: [RequiredRule()])
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         mapView.delegate = self
@@ -162,6 +167,14 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
                 break
             }
         }
+    }
+    @IBAction func onFollowClicked(_ sender: Any) {
+        validator.validate(self)
+    }
+    
+    func validationSuccessful() {
+        let username = followTextField.text!
+        follow(username: username)
     }
     
 }
