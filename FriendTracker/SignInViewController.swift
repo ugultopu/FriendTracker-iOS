@@ -17,9 +17,6 @@ class SignInViewController: UIViewController, ValidationDelegate {
     
     let validator = Validator()
     
-    // TODO: Remove the following line on production. (That is, when you get your certificate signed by a CA (certificate authority).
-    static let sessionManager = SessionManager(serverTrustPolicyManager: ServerTrustPolicyManager(policies: ["\(host)": .disableEvaluation]) )
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
