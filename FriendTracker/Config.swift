@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 
 let host = "localhost"
+let port = "8443"
 // FIXME Remove the following line on production. (That is, when you get your certificate signed by a CA (certificate authority).
 let sessionManager = SessionManager(serverTrustPolicyManager: ServerTrustPolicyManager(policies: ["\(host)": .disableEvaluation]) )
 

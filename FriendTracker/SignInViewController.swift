@@ -61,7 +61,7 @@ class SignInViewController: UIViewController, ValidationDelegate {
             "password": password
         ]
         
-        sessionManager.request("https://\(host):8443/login/", method: .post, parameters: parameters).responseJSON { response in
+        sessionManager.request("https://\(host):\(port)/login/", method: .post, parameters: parameters).responseJSON { response in
             switch response.result {
             case .success(let data):
                 let json = JSON(data)

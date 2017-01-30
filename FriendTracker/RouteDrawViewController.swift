@@ -32,7 +32,7 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         mapView.delegate = self
-        socket = WebSocket(url: URL(string: "wss://\(host):8443/location/?session_key=\(sessionid)")!)
+        socket = WebSocket(url: URL(string: "wss://\(host):\(port)/location/?session_key=\(sessionid)")!)
         // TODO: Remove the following line on production. (That is, when you get your certificate signed by a CA (certificate authority).
         socket.disableSSLCertValidation = true
         socket.delegate = self
@@ -141,7 +141,7 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
         let parameters: Parameters = [
             "username": username,
             ]
-        sessionManager.request("https://\(host):8443/follow/", method: .post, parameters: parameters).responseJSON { response in
+        sessionManager.request("https://\(host):\(port)/follow/", method: .post, parameters: parameters).responseJSON { response in
             switch response.result {
             case .success(let data):
                 let json = JSON(data)
