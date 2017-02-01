@@ -69,6 +69,28 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
         print("websocket is disconnected: \(error?.localizedDescription)")
     }
     
+    func updateSessionID(sessionid: String) {
+        let cookieStorage = sessionManager.session.configuration.httpCookieStorage!
+        let cookies = cookieStorage.cookies(for: URL(string: "https://\(host)")!)!
+        // Delete the old session ID cookie
+        var expires = Date()
+        for cookie in cookies {
+            if(cookie.name == "sessionid") {
+                expires = cookie.expiresDate!
+                cookieStorage.deleteCookie(cookie)
+                break
+            }
+        }
+        // Set new session ID cookie
+        // FIXME Determine if
+        //   1. Setting expiresDate
+        //   2. Making "sessionOnly:FALSE"
+        // needed or not.
+        // FIXME "expires" and "discard" are not being set.
+        let cookie = HTTPCookie(properties: [HTTPCookiePropertyKey.name: "sessionid", HTTPCookiePropertyKey.value: sessionid, HTTPCookiePropertyKey.domain: host, HTTPCookiePropertyKey.path: "/", HTTPCookiePropertyKey.expires: expires, HTTPCookiePropertyKey.discard: "FALSE"])!
+        cookieStorage.setCookie(cookie)
+    }
+
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {
         // TODO: Switch case w.r.t the 'socket' parameter.
         let json = JSON.parse(text)
@@ -76,8 +98,8 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
         print(text)
         switch connectionStatus {
         case .connecting:
-            let sessionid = json["sessionid"]
-            print("Session ID is \(sessionid)")
+            let sessionid = json["sessionid"].stringValue
+            updateSessionID(sessionid: sessionid)
             connectionStatus = .send_receive
             break
         case .send_receive:

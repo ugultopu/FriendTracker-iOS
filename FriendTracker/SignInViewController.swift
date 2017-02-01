@@ -55,7 +55,18 @@ class SignInViewController: UIViewController, ValidationDelegate {
         SignInViewController.signIn(username: username, password: password, view: self)
     }
     
+    // FIXME Decide if you need to delete only the "sessionid", or if you need to delete "crsftoken" as well.
+    static func deleteCookies() {
+        let cookieStorage = sessionManager.session.configuration.httpCookieStorage!
+        let cookies = cookieStorage.cookies(for: URL(string: "https://\(host)")!)!
+        for cookie in cookies {
+            cookieStorage.deleteCookie(cookie)
+        }
+    }
+    
     static func signIn(username: String, password: String, view: UIViewController) {
+        deleteCookies()
+        
         let parameters: Parameters = [
             "username": username,
             "password": password
