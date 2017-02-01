@@ -65,6 +65,11 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {
         // TODO: Switch case w.r.t the 'socket' parameter.
         let json = JSON.parse(text)
+        print("Received:")
+        print(text)
+        if json["sessionid"] != nil {
+            return
+        }
         let user = UserID(json["user"].intValue)
         let timestamp = TimeInterval(json["timestamp"].doubleValue)
         let latitude = CLLocationDegrees(json["latitude"].doubleValue)
@@ -74,14 +79,14 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
             remove(overlay: user.overlay)
             user.add(location: location)
             add(overlay: user.overlay)
-            print("Existing user is:")
-            print(user)
-            print("Number of locations: \(user.overlay.locations.count)")
+//            print("Existing user is:")
+//            print(user)
+//            print("Number of locations: \(user.overlay.locations.count)")
         } else {
             let newUser = User(withId: user, atLocation: location)
             users[user] = newUser
-            print("New user is:")
-            print(newUser)
+//            print("New user is:")
+//            print(newUser)
             add(overlay: newUser.overlay)
         }
     }
