@@ -16,6 +16,12 @@ import SwiftValidator
 
 class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, ValidationDelegate, WebSocketDelegate {
     
+    enum ConnectionStatus {
+        case connecting
+        case send_receive
+        case send_only
+    }
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var followTextField: UITextField!
     
@@ -25,6 +31,7 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
     var socket = WebSocket(url: URL(string: "ws://\(host)")!)
     var users = [UserID: User]()
     var firstOverlay = true
+    var connectionStatus = ConnectionStatus.connecting
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,27 +74,35 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
         let json = JSON.parse(text)
         print("Received:")
         print(text)
-        if json["sessionid"] != nil {
-            return
-        }
-        let user = UserID(json["user"].intValue)
-        let timestamp = TimeInterval(json["timestamp"].doubleValue)
-        let latitude = CLLocationDegrees(json["latitude"].doubleValue)
-        let longitude = CLLocationDegrees(json["longitude"].doubleValue)
-        let location = Location(timestamp: timestamp, latitude: latitude, longitude: longitude)
-        if let user = users[user] {
-            remove(overlay: user.overlay)
-            user.add(location: location)
-            add(overlay: user.overlay)
-//            print("Existing user is:")
-//            print(user)
-//            print("Number of locations: \(user.overlay.locations.count)")
-        } else {
-            let newUser = User(withId: user, atLocation: location)
-            users[user] = newUser
-//            print("New user is:")
-//            print(newUser)
-            add(overlay: newUser.overlay)
+        switch connectionStatus {
+        case .connecting:
+            let sessionid = json["sessionid"]
+            print("Session ID is \(sessionid)")
+            connectionStatus = .send_receive
+            break
+        case .send_receive:
+            let user = UserID(json["user"].intValue)
+            let timestamp = TimeInterval(json["timestamp"].doubleValue)
+            let latitude = CLLocationDegrees(json["latitude"].doubleValue)
+            let longitude = CLLocationDegrees(json["longitude"].doubleValue)
+            let location = Location(timestamp: timestamp, latitude: latitude, longitude: longitude)
+            if let user = users[user] {
+                remove(overlay: user.overlay)
+                user.add(location: location)
+                add(overlay: user.overlay)
+                //            print("Existing user is:")
+                //            print(user)
+                //            print("Number of locations: \(user.overlay.locations.count)")
+            } else {
+                let newUser = User(withId: user, atLocation: location)
+                users[user] = newUser
+                //            print("New user is:")
+                //            print(newUser)
+                add(overlay: newUser.overlay)
+            }
+            break
+        case .send_only:
+            break
         }
     }
     
