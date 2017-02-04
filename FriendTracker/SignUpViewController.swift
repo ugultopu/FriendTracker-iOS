@@ -81,7 +81,9 @@ class SignUpViewController: UIViewController, ValidationDelegate {
                 let status = json["status"]
                 switch status {
                 case "Success":
-                    SignInViewController.signIn(username: username, password: password, view: self)
+                    // FIXME This is a workaround for sign in not being performed on server side after a sign up. After you fix this problem on server side, delete the line below and uncomment the line after below.
+                    self.performSegue(withIdentifier: "ShowSignInView", sender: self)
+//                    SignInViewController.signIn(username: username, password: password, view: self)
                     break
                 case "Cannot create user":
                     self.alert(title: "Sign Up Failed", message: "The server couldn't create a user.")
