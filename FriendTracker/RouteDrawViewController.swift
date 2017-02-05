@@ -24,18 +24,22 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var followTextField: UITextField!
+    @IBOutlet weak var pinLocationTextField: UITextField!
     
     let locationManager = CLLocationManager()
-    let validator = Validator()
+    let followTextFieldValidator = Validator()
+    let locationNameTextFieldValidator = Validator()
     var sessionid = ""
     var socket = WebSocket(url: URL(string: "ws://\(host)")!)
     var users = [UserID: User]()
     var firstOverlay = true
     var connectionStatus = ConnectionStatus.connecting
+    var currentLocation = CLLocationCoordinate2D()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        validator.registerField(followTextField, rules: [RequiredRule()])
+        followTextFieldValidator.registerField(followTextField, rules: [RequiredRule()])
+        locationNameTextFieldValidator.registerField(pinLocationTextField, rules: [RequiredRule()])
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         mapView.delegate = self
@@ -164,6 +168,7 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // TODO: Read the locations in a loop.
         let currentLocationCoordinate = locations[0].coordinate
+        currentLocation = currentLocationCoordinate
         //        print("Current location is: \(currentLocationCoordinate)")
         let parameters: Parameters = [
             "timestamp": NSDate().timeIntervalSince1970,
@@ -211,7 +216,10 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
         }
     }
     @IBAction func onFollowClicked(_ sender: Any) {
-        validator.validate(self)
+        followTextFieldValidator.validate({(followText) -> Void in
+            let username = followTextField.text!
+            follow(username: username)
+        })
     }
     
     func validationSuccessful() {
@@ -219,4 +227,13 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
         follow(username: username)
     }
     
+    @IBAction func onPinLocationClicked(_ sender: Any) {
+        locationNameTextFieldValidator.validate({(pinLocationText) -> Void in
+            let parameters: Parameters = [
+                "name": pinLocationTextField.text!,
+                "latitude": currentLocation.latitude,
+                "longitude": currentLocation.longitude,
+                ]
+        })
+    }
 }

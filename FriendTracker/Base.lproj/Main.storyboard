@@ -208,13 +208,34 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ndo-Ln-udT">
+                                <rect key="frame" x="16" y="607" width="343" height="60"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Pin location text field" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r1B-vi-V3K">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TcR-pN-dAV" userLabel="Pin location button">
+                                        <rect key="frame" x="0.0" y="30" width="343" height="30"/>
+                                        <state key="normal" title="Pin Location"/>
+                                        <connections>
+                                            <action selector="onPinLocationClicked:" destination="2id-aM-qat" eventType="touchUpInside" id="7WZ-JB-vQe"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ZyQ-dP-H6B" firstAttribute="top" secondItem="PHv-Bx-NUi" secondAttribute="bottom" id="1fN-hl-gby"/>
+                            <constraint firstItem="ZyQ-dP-H6B" firstAttribute="top" secondItem="Ndo-Ln-udT" secondAttribute="bottom" id="6dY-JR-HhT"/>
                             <constraint firstAttribute="trailing" secondItem="PHv-Bx-NUi" secondAttribute="trailing" id="APJ-Up-ae8"/>
                             <constraint firstItem="vPV-z3-kB4" firstAttribute="leading" secondItem="cfV-oB-FoR" secondAttribute="leadingMargin" id="Aew-dW-eJI"/>
+                            <constraint firstItem="Ndo-Ln-udT" firstAttribute="leading" secondItem="cfV-oB-FoR" secondAttribute="leadingMargin" id="Crb-Wg-Ipp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vPV-z3-kB4" secondAttribute="trailing" id="WdV-jw-9Zm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ndo-Ln-udT" secondAttribute="trailing" id="c6H-He-fUO"/>
                             <constraint firstItem="PHv-Bx-NUi" firstAttribute="top" secondItem="sFo-1R-nmf" secondAttribute="bottom" id="cuu-1V-QKc"/>
                             <constraint firstItem="vPV-z3-kB4" firstAttribute="top" secondItem="sFo-1R-nmf" secondAttribute="bottom" id="t94-t9-tUL"/>
                             <constraint firstItem="PHv-Bx-NUi" firstAttribute="leading" secondItem="cfV-oB-FoR" secondAttribute="leading" id="yvs-fs-DuH"/>
@@ -223,6 +244,7 @@
                     <connections>
                         <outlet property="followTextField" destination="bJl-bv-oDh" id="Xn7-f3-Im6"/>
                         <outlet property="mapView" destination="PHv-Bx-NUi" id="Vmn-hR-Hff"/>
+                        <outlet property="pinLocationTextField" destination="r1B-vi-V3K" id="qWe-r9-8PU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5sd-LY-rGa" userLabel="First Responder" sceneMemberID="firstResponder"/>
