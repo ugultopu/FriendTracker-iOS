@@ -14,7 +14,7 @@ import SwiftyJSON
 import Starscream
 import SwiftValidator
 
-class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, ValidationDelegate, WebSocketDelegate {
+class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, WebSocketDelegate {
     
     enum ConnectionStatus {
         case connecting
@@ -28,7 +28,7 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
     
     let locationManager = CLLocationManager()
     let followTextFieldValidator = Validator()
-    let locationNameTextFieldValidator = Validator()
+    let pinLocationTextFieldValidator = Validator()
     var sessionid = ""
     var socket = WebSocket(url: URL(string: "ws://\(host)")!)
     var users = [UserID: User]()
@@ -39,7 +39,7 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
     override func viewDidLoad() {
         super.viewDidLoad()
         followTextFieldValidator.registerField(followTextField, rules: [RequiredRule()])
-        locationNameTextFieldValidator.registerField(pinLocationTextField, rules: [RequiredRule()])
+        pinLocationTextFieldValidator.registerField(pinLocationTextField, rules: [RequiredRule()])
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         mapView.delegate = self
@@ -215,25 +215,42 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
             }
         }
     }
+    
     @IBAction func onFollowClicked(_ sender: Any) {
-        followTextFieldValidator.validate({(followText) -> Void in
+        followTextFieldValidator.validate({(something) -> Void in
             let username = followTextField.text!
             follow(username: username)
         })
     }
     
-    func validationSuccessful() {
-        let username = followTextField.text!
-        follow(username: username)
-    }
-    
     @IBAction func onPinLocationClicked(_ sender: Any) {
-        locationNameTextFieldValidator.validate({(pinLocationText) -> Void in
+        pinLocationTextFieldValidator.validate({(something) -> Void in
             let parameters: Parameters = [
+                "command": "save",
                 "name": pinLocationTextField.text!,
                 "latitude": currentLocation.latitude,
                 "longitude": currentLocation.longitude,
                 ]
+            sessionManager.request("https://\(host):\(port)/location/ops/", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+                switch response.result {
+                case .success(let data):
+                    let json = JSON(data)
+                    let status = json["status"]
+                    switch status {
+                    case "Success":
+                        //                    self.alert(title: "Success", message: "Success.")
+                        break
+                    default:
+                        self.alert(title: "Cannot save location", message: "Cannot save location due to an unkown reason")
+                        break
+                    }
+                case .failure(let error):
+                    // TODO: Handle error here
+                    self.alert(title: "Server Error", message: "The server has returned a non 200 response.")
+                    print(error)
+                    break
+                }
+            }
         })
     }
 }
