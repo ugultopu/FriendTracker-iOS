@@ -48,7 +48,7 @@ class SignInViewController: UIViewController, ValidationDelegate {
         validator.validate(self)
     }
     
-    func validationSuccessful() {
+    func validationSuccessful(for: Validator) {
         let username = usernameTextField.text!
         let password = passwordTextField.text!
         

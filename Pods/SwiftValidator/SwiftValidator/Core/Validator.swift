@@ -146,7 +146,7 @@ public class Validator {
         self.validateAllFields()
         
         if errors.isEmpty {
-            delegate.validationSuccessful()
+            delegate.validationSuccessful(for: self)
         } else {
             delegate.validationFailed(errors.map { (fields[$1.field]!, $1) })
         }

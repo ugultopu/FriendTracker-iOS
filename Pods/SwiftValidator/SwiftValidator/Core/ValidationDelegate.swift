@@ -17,7 +17,7 @@ public protocol ValidationDelegate {
      
      - returns: No return value.
      */
-    func validationSuccessful()
+    func validationSuccessful(for: Validator)
     /**
      This method will be called on delegate object when validation fails.
      

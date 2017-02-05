@@ -57,7 +57,7 @@ class SignUpViewController: UIViewController, ValidationDelegate {
         validator.validate(self)
     }
     
-    func validationSuccessful() {
+    func validationSuccessful(for: Validator) {
         let firstname = firstNameTextField.text!
         let lastname = lastNameTextField.text!
         let email = emailAddressTextField.text!

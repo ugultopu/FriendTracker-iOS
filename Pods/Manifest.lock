@@ -1,8 +1,8 @@
 PODS:
-  - Alamofire (4.0.1)
-  - Starscream (2.0.1)
+  - Alamofire (4.3.0)
+  - Starscream (2.0.3)
   - SwiftValidator (4.0.0)
-  - SwiftyJSON (3.1.1)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
@@ -17,15 +17,15 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SwiftValidator:
-    :commit: 2fdb573dac75398216c825ec80dcdba90213046a
+    :commit: e6976d1748aa1dd99fe81dc4ea10901fc339b396
     :git: https://github.com/ugultopu/SwiftValidator.git
 
 SPEC CHECKSUMS:
-  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
-  Starscream: ce7a202d95615bd4113bc5a0f1932f1db8c808a4
+  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
+  Starscream: 3fdd5c277e57cca6b5c406d274e3f34a7c88f2ce
   SwiftValidator: 25ded5ca1f10c05adf57f6ac82a72d28ac8d91af
-  SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
 PODFILE CHECKSUM: 1ebdaacadb585cd5cfd8a5187177f35d50f754d6
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0

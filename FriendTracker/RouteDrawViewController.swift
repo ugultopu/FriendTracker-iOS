@@ -14,7 +14,7 @@ import SwiftyJSON
 import Starscream
 import SwiftValidator
 
-class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, WebSocketDelegate {
+class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, ValidationDelegate, WebSocketDelegate {
     
     enum ConnectionStatus {
         case connecting
@@ -38,12 +38,6 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
     var pinnedLocations: [MKPointAnnotation] = []
     
     override func viewDidLoad() {
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(latitude: 37.32459787, longitude: -122.02477367)
-        pinnedLocations.append(annotation)
-        for location in pinnedLocations {
-            mapView.addAnnotation(location)
-        }
         super.viewDidLoad()
         followTextFieldValidator.registerField(followTextField, rules: [RequiredRule()])
         pinLocationTextFieldValidator.registerField(pinLocationTextField, rules: [RequiredRule()])
@@ -223,15 +217,11 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
         }
     }
     
-    @IBAction func onFollowClicked(_ sender: Any) {
-        followTextFieldValidator.validate({(something) -> Void in
+    func validationSuccessful(for: Validator) {
+        if `for` === followTextFieldValidator {
             let username = followTextField.text!
             follow(username: username)
-        })
-    }
-    
-    @IBAction func onPinLocationClicked(_ sender: Any) {
-        pinLocationTextFieldValidator.validate({(something) -> Void in
+        } else if `for` === pinLocationTextFieldValidator {
             let parameters: Parameters = [
                 "command": "save",
                 "name": pinLocationTextField.text!,
@@ -258,7 +248,15 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
                     break
                 }
             }
-        })
+        }
+    }
+    
+    @IBAction func onFollowClicked(_ sender: Any) {
+        followTextFieldValidator.validate(self)
+    }
+    
+    @IBAction func onPinLocationClicked(_ sender: Any) {
+        pinLocationTextFieldValidator.validate(self)
     }
     
     @IBAction func onShowLocationsClicked(_ sender: Any) {
@@ -270,22 +268,6 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
             case .success(let data):
                 let json = JSON(data)
                 let status = json["status"]
-//                print(json)
-//                print(type(of: status.arrayValue))
-//                print(type(of: json["locations"]))
-//                print(JSON(json["locations"].stringValue))
-//                print(JSON.parse(json["locations"].stringValue).count) // WORKING!
-                let locations = JSON.parse(json["locations"].stringValue) // WORKING!
-//                print(locations)
-                for (index, json) in locations {
-                    let fields = json["fields"]
-                    print(fields["user"])
-                    print(fields["latitude"])
-                    print(fields["longitude"])
-                }
-//                for location in locations {
-//                    print(location.1["fields"])
-//                }
                 switch status {
                 case "Success":
                     self.mapView.removeAnnotations(self.pinnedLocations)
@@ -295,6 +277,7 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
                         let fields = locationJson["fields"]
                         let annotation = MKPointAnnotation()
                         annotation.coordinate = CLLocationCoordinate2D(latitude: fields["latitude"].doubleValue, longitude: fields["longitude"].doubleValue)
+                        annotation.accessibilityLabel = "Test"
                         self.pinnedLocations.append(annotation)
                     }
                     self.mapView.addAnnotations(self.pinnedLocations)
