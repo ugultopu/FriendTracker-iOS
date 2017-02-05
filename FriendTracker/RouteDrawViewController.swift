@@ -35,8 +35,15 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
     var firstOverlay = true
     var connectionStatus = ConnectionStatus.connecting
     var currentLocation = CLLocationCoordinate2D()
+    var pinnedLocations: [MKPointAnnotation] = []
     
     override func viewDidLoad() {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: 37.32459787, longitude: -122.02477367)
+        pinnedLocations.append(annotation)
+        for location in pinnedLocations {
+            mapView.addAnnotation(location)
+        }
         super.viewDidLoad()
         followTextFieldValidator.registerField(followTextField, rules: [RequiredRule()])
         pinLocationTextFieldValidator.registerField(pinLocationTextField, rules: [RequiredRule()])
@@ -98,8 +105,8 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {
         // TODO: Switch case w.r.t the 'socket' parameter.
         let json = JSON.parse(text)
-        print("Received:")
-        print(text)
+//        print("Received:")
+//        print(text)
         switch connectionStatus {
         case .connecting:
             let sessionid = json["sessionid"].stringValue
@@ -252,5 +259,56 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
                 }
             }
         })
+    }
+    
+    @IBAction func onShowLocationsClicked(_ sender: Any) {
+        let parameters: Parameters = [
+            "command": "load"
+            ]
+        sessionManager.request("https://\(host):\(port)/location/ops/", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+            switch response.result {
+            case .success(let data):
+                let json = JSON(data)
+                let status = json["status"]
+//                print(json)
+//                print(type(of: status.arrayValue))
+//                print(type(of: json["locations"]))
+//                print(JSON(json["locations"].stringValue))
+//                print(JSON.parse(json["locations"].stringValue).count) // WORKING!
+                let locations = JSON.parse(json["locations"].stringValue) // WORKING!
+//                print(locations)
+                for (index, json) in locations {
+                    let fields = json["fields"]
+                    print(fields["user"])
+                    print(fields["latitude"])
+                    print(fields["longitude"])
+                }
+//                for location in locations {
+//                    print(location.1["fields"])
+//                }
+                switch status {
+                case "Success":
+                    self.mapView.removeAnnotations(self.pinnedLocations)
+                    self.pinnedLocations.removeAll()
+                    let locations = JSON.parse(json["locations"].stringValue)
+                    for (index, locationJson) in locations {
+                        let fields = locationJson["fields"]
+                        let annotation = MKPointAnnotation()
+                        annotation.coordinate = CLLocationCoordinate2D(latitude: fields["latitude"].doubleValue, longitude: fields["longitude"].doubleValue)
+                        self.pinnedLocations.append(annotation)
+                    }
+                    self.mapView.addAnnotations(self.pinnedLocations)
+                    break
+                default:
+                    self.alert(title: "Cannot load location", message: "Cannot load location due to an unkown reason")
+                    break
+                }
+            case .failure(let error):
+                // TODO: Handle error here
+                self.alert(title: "Server Error", message: "The server has returned a non 200 response.")
+                print(error)
+                break
+            }
+        }
     }
 }

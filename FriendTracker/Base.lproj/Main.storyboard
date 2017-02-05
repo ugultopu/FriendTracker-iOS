@@ -209,7 +209,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ndo-Ln-udT">
-                                <rect key="frame" x="16" y="607" width="343" height="60"/>
+                                <rect key="frame" x="16" y="577" width="343" height="90"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Pin location text field" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r1B-vi-V3K">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
@@ -222,6 +222,13 @@
                                         <state key="normal" title="Pin Location"/>
                                         <connections>
                                             <action selector="onPinLocationClicked:" destination="2id-aM-qat" eventType="touchUpInside" id="7WZ-JB-vQe"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MiF-ut-9RY" userLabel="Show locations button">
+                                        <rect key="frame" x="0.0" y="60" width="343" height="30"/>
+                                        <state key="normal" title="Show Locations"/>
+                                        <connections>
+                                            <action selector="onShowLocationsClicked:" destination="2id-aM-qat" eventType="touchUpInside" id="A7X-lM-twk"/>
                                         </connections>
                                     </button>
                                 </subviews>
