@@ -277,7 +277,7 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
                         let fields = locationJson["fields"]
                         let annotation = MKPointAnnotation()
                         annotation.coordinate = CLLocationCoordinate2D(latitude: fields["latitude"].doubleValue, longitude: fields["longitude"].doubleValue)
-                        annotation.accessibilityLabel = "Test"
+                        annotation.title = fields["name"].stringValue
                         self.pinnedLocations.append(annotation)
                     }
                     self.mapView.addAnnotations(self.pinnedLocations)
