@@ -124,7 +124,7 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
 
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {
         // TODO: Switch case w.r.t the 'socket' parameter.
-        let json = JSON.parse(text)
+        let json = JSON(parseJSON: text)
 //        print("Received:")
 //        print(text)
         switch connectionStatus {
@@ -298,8 +298,8 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
                 case "Success":
                     self.mapView.removeAnnotations(self.pinnedLocations)
                     self.pinnedLocations.removeAll()
-                    let locations = JSON.parse(json["locations"].stringValue)
-                    for (index, locationJson) in locations {
+                    let locations = JSON(parseJSON: json["locations"].stringValue)
+                    for (_, locationJson) in locations {
                         let fields = locationJson["fields"]
                         let annotation = MKPointAnnotation()
                         annotation.coordinate = CLLocationCoordinate2D(latitude: fields["latitude"].doubleValue, longitude: fields["longitude"].doubleValue)
