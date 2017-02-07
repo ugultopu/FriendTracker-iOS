@@ -25,6 +25,7 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var followTextField: UITextField!
     @IBOutlet weak var pinLocationTextField: UITextField!
+    @IBOutlet weak var bottomStackViewLayoutContraint: NSLayoutConstraint!
     
     let locationManager = CLLocationManager()
     let followTextFieldValidator = Validator()
@@ -39,6 +40,7 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         followTextFieldValidator.registerField(followTextField, rules: [RequiredRule()])
         pinLocationTextFieldValidator.registerField(pinLocationTextField, rules: [RequiredRule()])
         locationManager.delegate = self
@@ -49,6 +51,30 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
         socket.disableSSLCertValidation = true
         socket.delegate = self
         socket.connect()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func keyboardNotification(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            let duration:TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+            let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
+            let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
+            let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
+            if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
+                self.bottomStackViewLayoutContraint.constant = 0.0
+            } else {
+                self.bottomStackViewLayoutContraint.constant = endFrame?.size.height ?? 0.0
+            }
+            UIView.animate(withDuration: duration,
+                           delay: TimeInterval(0),
+                           options: animationCurve,
+                           animations: { self.view.layoutIfNeeded() },
+                           completion: nil)
+        }
     }
     
     override func didReceiveMemoryWarning() {

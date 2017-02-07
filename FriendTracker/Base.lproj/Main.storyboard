@@ -249,6 +249,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomStackViewLayoutContraint" destination="6dY-JR-HhT" id="vdz-JC-YbI"/>
                         <outlet property="followTextField" destination="bJl-bv-oDh" id="Xn7-f3-Im6"/>
                         <outlet property="mapView" destination="PHv-Bx-NUi" id="Vmn-hR-Hff"/>
                         <outlet property="pinLocationTextField" destination="r1B-vi-V3K" id="qWe-r9-8PU"/>
