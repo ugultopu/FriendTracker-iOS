@@ -39,13 +39,13 @@ class SignInViewController: UIViewController, ValidationDelegate {
             let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
             let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
             if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
-                self.stackViewVerticalCenterLayoutConstraint.isActive = false
-                self.stackViewVerticalBottomLayoutConstraint.isActive = true
+                self.stackViewVerticalCenterLayoutConstraint.isActive = true
+                self.stackViewVerticalBottomLayoutConstraint.isActive = false
                 self.stackViewVerticalBottomLayoutConstraint.constant = 0.0
             } else {
-                self.stackViewVerticalCenterLayoutConstraint.isActive = false
-                self.stackViewVerticalBottomLayoutConstraint.isActive = true
                 self.stackViewVerticalBottomLayoutConstraint.constant = endFrame?.size.height ?? 0.0
+                self.stackViewVerticalBottomLayoutConstraint.isActive = true
+                self.stackViewVerticalCenterLayoutConstraint.isActive = false
             }
             UIView.animate(withDuration: duration,
                            delay: TimeInterval(0),
