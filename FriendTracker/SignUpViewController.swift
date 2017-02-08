@@ -19,8 +19,8 @@ class SignUpViewController: UIViewController, ValidationDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var password0TextField: UITextField!
     @IBOutlet weak var password1TextField: UITextField!
-    @IBOutlet var stackViewBottomLayoutConstraint: NSLayoutConstraint!
-    @IBOutlet var stackViewVerticalCenterConstraint: NSLayoutConstraint!
+    @IBOutlet var stackViewVerticalCenterLayoutConstraint: NSLayoutConstraint!
+    @IBOutlet var stackViewVerticalBottomLayoutConstraint: NSLayoutConstraint!
     
     let validator = Validator()
     
@@ -30,7 +30,7 @@ class SignUpViewController: UIViewController, ValidationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.stackViewBottomLayoutConstraint.isActive = false
+        self.stackViewVerticalBottomLayoutConstraint.isActive = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         validator.registerField(firstNameTextField, rules: [RequiredRule()])
         validator.registerField(lastNameTextField, rules: [])
@@ -42,7 +42,6 @@ class SignUpViewController: UIViewController, ValidationDelegate {
     }
     
     deinit {
-        self.stackViewVerticalCenterConstraint.isActive = true
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -54,11 +53,13 @@ class SignUpViewController: UIViewController, ValidationDelegate {
             let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
             let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
             if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
-                self.stackViewBottomLayoutConstraint.constant = 0.0
+                self.stackViewVerticalCenterLayoutConstraint.isActive = false
+                self.stackViewVerticalBottomLayoutConstraint.isActive = true
+                self.stackViewVerticalBottomLayoutConstraint.constant = 0.0
             } else {
-                self.stackViewVerticalCenterConstraint.isActive = false
-                self.stackViewBottomLayoutConstraint.isActive = true
-                self.stackViewBottomLayoutConstraint.constant = endFrame?.size.height ?? 0.0
+                self.stackViewVerticalCenterLayoutConstraint.isActive = false
+                self.stackViewVerticalBottomLayoutConstraint.isActive = true
+                self.stackViewVerticalBottomLayoutConstraint.constant = endFrame?.size.height ?? 0.0
             }
             UIView.animate(withDuration: duration,
                            delay: TimeInterval(0),

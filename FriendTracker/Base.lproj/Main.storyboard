@@ -94,7 +94,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ni0-oG-qNM">
-                                <rect key="frame" x="16" y="204" width="343" height="260.5"/>
+                                <rect key="frame" x="16" y="203.5" width="343" height="260.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="906-1e-cZd" userLabel="Sign Up Label">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
@@ -156,11 +156,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Ni0-oG-qNM" firstAttribute="centerX" secondItem="1e8-F2-2KG" secondAttribute="centerX" id="4kz-lb-x0R"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ni0-oG-qNM" secondAttribute="trailing" id="A6G-BG-69a"/>
-                            <constraint firstItem="Ni0-oG-qNM" firstAttribute="centerY" secondItem="1e8-F2-2KG" secondAttribute="centerY" id="dIc-eM-dJK"/>
-                            <constraint firstItem="Ni0-oG-qNM" firstAttribute="leading" secondItem="1e8-F2-2KG" secondAttribute="leadingMargin" id="e4N-El-nwh"/>
-                            <constraint firstItem="JqQ-GV-E15" firstAttribute="top" secondItem="Ni0-oG-qNM" secondAttribute="bottom" constant="202.5" id="zCb-Rt-Yv6"/>
+                            <constraint firstItem="JqQ-GV-E15" firstAttribute="top" secondItem="Ni0-oG-qNM" secondAttribute="bottom" constant="203" id="K4j-n5-Iu7"/>
+                            <constraint firstItem="Ni0-oG-qNM" firstAttribute="centerX" secondItem="1e8-F2-2KG" secondAttribute="centerX" id="QKP-Me-v3d"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ni0-oG-qNM" secondAttribute="trailing" id="pto-lq-cxh"/>
+                            <constraint firstItem="Ni0-oG-qNM" firstAttribute="centerY" secondItem="1e8-F2-2KG" secondAttribute="centerY" id="td2-vw-tdq"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="Ni0-oG-qNM" secondAttribute="leading" id="x0E-g7-reW"/>
                         </constraints>
                     </view>
                     <connections>
@@ -170,8 +170,8 @@
                         <outlet property="password0TextField" destination="eEm-gB-rxM" id="bjj-dd-uVr"/>
                         <outlet property="password1TextField" destination="M2r-cP-0Gb" id="xdF-ia-vQu"/>
                         <outlet property="phoneNumberTextField" destination="42I-p0-eFP" id="sxH-Mj-hgS"/>
-                        <outlet property="stackViewBottomLayoutConstraint" destination="zCb-Rt-Yv6" id="dJv-mn-jnh"/>
-                        <outlet property="stackViewVerticalCenterConstraint" destination="dIc-eM-dJK" id="DiD-6r-L9H"/>
+                        <outlet property="stackViewVerticalBottomLayoutConstraint" destination="K4j-n5-Iu7" id="jW4-lH-EIE"/>
+                        <outlet property="stackViewVerticalCenterLayoutConstraint" destination="td2-vw-tdq" id="vKF-Bs-oVY"/>
                         <outlet property="usernameTextField" destination="I2a-u5-OCy" id="NQa-34-Tv8"/>
                         <segue destination="2id-aM-qat" kind="show" identifier="ShowRouteDrawView" id="WpP-Rl-gUm"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="ShowSignInView" id="7Vm-Pc-WRg"/>
@@ -267,6 +267,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="b2k-dv-qUI"/>
+        <segue reference="WpP-Rl-gUm"/>
     </inferredMetricsTieBreakers>
 </document>
