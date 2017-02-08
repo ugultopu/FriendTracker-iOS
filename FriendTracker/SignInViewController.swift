@@ -69,6 +69,7 @@ class SignInViewController: UIViewController, ValidationDelegate {
             case "ShowRouteDrawView":
                 let destination = segue.destination as! RouteDrawViewController
                 destination.sessionid = sender as! String
+                break
             default:
                 break
             }

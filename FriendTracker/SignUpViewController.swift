@@ -41,6 +41,11 @@ class SignUpViewController: UIViewController, ValidationDelegate {
         validator.registerField(password1TextField, rules: [ConfirmationRule(confirmField: password0TextField)])
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.stackViewVerticalBottomLayoutConstraint.isActive = false
+        self.stackViewVerticalCenterLayoutConstraint.isActive = true
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
