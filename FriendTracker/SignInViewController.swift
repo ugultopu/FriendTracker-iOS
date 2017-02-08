@@ -14,14 +14,45 @@ import SwiftValidator
 class SignInViewController: UIViewController, ValidationDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet var stackViewVerticalCenterLayoutConstraint: NSLayoutConstraint!
+    @IBOutlet var stackViewVerticalBottomLayoutConstraint: NSLayoutConstraint!
     
     let validator = Validator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.stackViewVerticalBottomLayoutConstraint.isActive = false
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         validator.registerField(usernameTextField, rules: [RequiredRule()])
         validator.registerField(passwordTextField, rules: [RequiredRule()])
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func keyboardNotification(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            let duration:TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+            let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
+            let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
+            let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
+            if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
+                self.stackViewVerticalCenterLayoutConstraint.isActive = false
+                self.stackViewVerticalBottomLayoutConstraint.isActive = true
+                self.stackViewVerticalBottomLayoutConstraint.constant = 0.0
+            } else {
+                self.stackViewVerticalCenterLayoutConstraint.isActive = false
+                self.stackViewVerticalBottomLayoutConstraint.isActive = true
+                self.stackViewVerticalBottomLayoutConstraint.constant = endFrame?.size.height ?? 0.0
+            }
+            UIView.animate(withDuration: duration,
+                           delay: TimeInterval(0),
+                           options: animationCurve,
+                           animations: { self.view.layoutIfNeeded() },
+                           completion: nil)
+        }
     }
     
     override func didReceiveMemoryWarning() {

@@ -64,12 +64,15 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="QE1-xe-q0o" secondAttribute="trailing" id="1nt-21-D0U"/>
                             <constraint firstItem="QE1-xe-q0o" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5Zm-nW-2bo"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="QE1-xe-q0o" secondAttribute="bottom" constant="263" id="BBv-qB-0w9"/>
                             <constraint firstItem="QE1-xe-q0o" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Kvl-08-rEu"/>
                             <constraint firstItem="QE1-xe-q0o" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zJk-ns-oLQ"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="passwordTextField" destination="Ucf-9Q-SWf" id="v2p-TH-ang"/>
+                        <outlet property="stackViewVerticalBottomLayoutConstraint" destination="BBv-qB-0w9" id="K9A-5Y-M0l"/>
+                        <outlet property="stackViewVerticalCenterLayoutConstraint" destination="zJk-ns-oLQ" id="bAt-jB-c1Z"/>
                         <outlet property="usernameTextField" destination="OPn-pu-Jid" id="rrB-A8-qxo"/>
                         <segue destination="2id-aM-qat" kind="show" identifier="ShowRouteDrawView" id="b2k-dv-qUI"/>
                     </connections>
@@ -264,6 +267,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="WpP-Rl-gUm"/>
+        <segue reference="b2k-dv-qUI"/>
     </inferredMetricsTieBreakers>
 </document>
