@@ -157,6 +157,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Ni0-oG-qNM" secondAttribute="trailing" id="A6G-BG-69a"/>
                             <constraint firstItem="Ni0-oG-qNM" firstAttribute="centerY" secondItem="1e8-F2-2KG" secondAttribute="centerY" id="dIc-eM-dJK"/>
                             <constraint firstItem="Ni0-oG-qNM" firstAttribute="leading" secondItem="1e8-F2-2KG" secondAttribute="leadingMargin" id="e4N-El-nwh"/>
+                            <constraint firstItem="JqQ-GV-E15" firstAttribute="top" secondItem="Ni0-oG-qNM" secondAttribute="bottom" constant="202.5" id="zCb-Rt-Yv6"/>
                         </constraints>
                     </view>
                     <connections>
@@ -166,6 +167,8 @@
                         <outlet property="password0TextField" destination="eEm-gB-rxM" id="bjj-dd-uVr"/>
                         <outlet property="password1TextField" destination="M2r-cP-0Gb" id="xdF-ia-vQu"/>
                         <outlet property="phoneNumberTextField" destination="42I-p0-eFP" id="sxH-Mj-hgS"/>
+                        <outlet property="stackViewBottomLayoutConstraint" destination="zCb-Rt-Yv6" id="dJv-mn-jnh"/>
+                        <outlet property="stackViewVerticalCenterConstraint" destination="dIc-eM-dJK" id="DiD-6r-L9H"/>
                         <outlet property="usernameTextField" destination="I2a-u5-OCy" id="NQa-34-Tv8"/>
                         <segue destination="2id-aM-qat" kind="show" identifier="ShowRouteDrawView" id="WpP-Rl-gUm"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="ShowSignInView" id="7Vm-Pc-WRg"/>

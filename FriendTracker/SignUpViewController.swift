@@ -19,6 +19,8 @@ class SignUpViewController: UIViewController, ValidationDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var password0TextField: UITextField!
     @IBOutlet weak var password1TextField: UITextField!
+    @IBOutlet var stackViewBottomLayoutConstraint: NSLayoutConstraint!
+    @IBOutlet var stackViewVerticalCenterConstraint: NSLayoutConstraint!
     
     let validator = Validator()
     
@@ -28,7 +30,8 @@ class SignUpViewController: UIViewController, ValidationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.stackViewBottomLayoutConstraint.isActive = false
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         validator.registerField(firstNameTextField, rules: [RequiredRule()])
         validator.registerField(lastNameTextField, rules: [])
         validator.registerField(emailAddressTextField, rules: [RequiredRule(), EmailRule()])
@@ -36,6 +39,33 @@ class SignUpViewController: UIViewController, ValidationDelegate {
         validator.registerField(usernameTextField, rules: [RequiredRule()])
         validator.registerField(password0TextField, rules: [RequiredRule()])
         validator.registerField(password1TextField, rules: [ConfirmationRule(confirmField: password0TextField)])
+    }
+    
+    deinit {
+        self.stackViewVerticalCenterConstraint.isActive = true
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func keyboardNotification(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            let duration:TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+            let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
+            let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
+            let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
+            if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
+                self.stackViewBottomLayoutConstraint.constant = 0.0
+            } else {
+                self.stackViewVerticalCenterConstraint.isActive = false
+                self.stackViewBottomLayoutConstraint.isActive = true
+                self.stackViewBottomLayoutConstraint.constant = endFrame?.size.height ?? 0.0
+            }
+            UIView.animate(withDuration: duration,
+                           delay: TimeInterval(0),
+                           options: animationCurve,
+                           animations: { self.view.layoutIfNeeded() },
+                           completion: nil)
+        }
     }
     
     override func didReceiveMemoryWarning() {
