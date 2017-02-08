@@ -41,10 +41,10 @@ class SignUpViewController: UIViewController, ValidationDelegate {
         validator.registerField(password1TextField, rules: [ConfirmationRule(confirmField: password0TextField)])
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        self.stackViewVerticalBottomLayoutConstraint.isActive = false
-        self.stackViewVerticalCenterLayoutConstraint.isActive = true
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        self.stackViewVerticalBottomLayoutConstraint.isActive = false
+//        self.stackViewVerticalCenterLayoutConstraint.isActive = true
+//    }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -58,8 +58,8 @@ class SignUpViewController: UIViewController, ValidationDelegate {
             let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
             let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
             if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
-                self.stackViewVerticalCenterLayoutConstraint.isActive = false
-                self.stackViewVerticalBottomLayoutConstraint.isActive = true
+                self.stackViewVerticalCenterLayoutConstraint.isActive = true
+                self.stackViewVerticalBottomLayoutConstraint.isActive = false
                 self.stackViewVerticalBottomLayoutConstraint.constant = 0.0
             } else {
                 self.stackViewVerticalCenterLayoutConstraint.isActive = false
