@@ -278,14 +278,17 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
     }
     
     @IBAction func onFollowClicked(_ sender: Any) {
+        self.view.endEditing(false)
         followTextFieldValidator.validate(self)
     }
     
     @IBAction func onPinLocationClicked(_ sender: Any) {
+        self.view.endEditing(false)
         pinLocationTextFieldValidator.validate(self)
     }
     
     @IBAction func onShowLocationsClicked(_ sender: Any) {
+        self.view.endEditing(false)
         let parameters: Parameters = [
             "command": "load"
             ]
