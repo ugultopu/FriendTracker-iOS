@@ -156,16 +156,73 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
                     add(overlay: newUser.overlay)
                 }
                 break
-            case "follow":
+            case "follow_request":
                 let followee_username = json["followee_username"]
+                let token = json["token"].stringValue
                 let alert = UIAlertController(title: "Follow Request", message: "\(followee_username) has requested to be followed. Do you accept?", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Follow", style: UIAlertActionStyle.default, handler: {action in
-                    // Send follow accept to server.
+                    let parameters: Parameters = [
+                        "token": token,
+                        "response": "Follow"
+                        ]
+                    sessionManager.request("https://\(host):\(port)/follow_response/", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+                        switch response.result {
+                        case .success(let data):
+                            let json = JSON(data)
+                            let status = json["status"]
+                            switch status {
+                            case "Success":
+                                break
+                            default:
+                                break
+                            }
+                        case .failure(let error):
+                            // TODO: Handle error here
+                            self.alert(title: "Server Error", message: "The server has returned a non 200 response.")
+                            print(error)
+                            break
+                        }
+                    }
                 }))
                 alert.addAction(UIAlertAction(title: "Don't Follow", style: UIAlertActionStyle.cancel, handler: {action in
-                    // Send follow reject to server.
+                    let parameters: Parameters = [
+                        "token": token,
+                        "response": "No follow"
+                    ]
+                    sessionManager.request("https://\(host):\(port)/follow_response/", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+                        switch response.result {
+                        case .success(let data):
+                            let json = JSON(data)
+                            let status = json["status"]
+                            switch status {
+                            case "Success":
+                                break
+                            default:
+                                break
+                            }
+                        case .failure(let error):
+                            // TODO: Handle error here
+                            self.alert(title: "Server Error", message: "The server has returned a non 200 response.")
+                            print(error)
+                            break
+                        }
+                    }
                 }))
                 self.present(alert, animated: true, completion: nil)
+                break
+            case "follow_response":
+                let response = json["response"]
+                let follower_username = json["follower_username"]
+                switch response {
+                case "Follow":
+                    self.alert(title: "Follow Request Accepted", message: "\(follower_username) has accepted your follow request.")
+                    break
+                case "No follow":
+                    self.alert(title: "Follow Request Denied", message: "\(follower_username) has denied your follow request.")
+                    break
+                default:
+                    break
+                }
                 break
             default:
                 break
@@ -232,7 +289,7 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
         let parameters: Parameters = [
             "username": username,
             ]
-        sessionManager.request("https://\(host):\(port)/follow/", method: .post, parameters: parameters).responseJSON { response in
+        sessionManager.request("https://\(host):\(port)/follow_request/", method: .post, parameters: parameters).responseJSON { response in
             switch response.result {
             case .success(let data):
                 let json = JSON(data)
