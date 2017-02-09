@@ -125,8 +125,8 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {
         // TODO: Switch case w.r.t the 'socket' parameter.
         let json = JSON(parseJSON: text)
-//        print("Received:")
-//        print(text)
+        print("Received:")
+        print(text)
         switch connectionStatus {
         case .connecting:
             let sessionid = json["sessionid"].stringValue
@@ -134,24 +134,33 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
             connectionStatus = .send_receive
             break
         case .send_receive:
-            let user = UserID(json["user"].intValue)
-            let timestamp = TimeInterval(json["timestamp"].doubleValue)
-            let latitude = CLLocationDegrees(json["latitude"].doubleValue)
-            let longitude = CLLocationDegrees(json["longitude"].doubleValue)
-            let location = Location(timestamp: timestamp, latitude: latitude, longitude: longitude)
-            if let user = users[user] {
-                remove(overlay: user.overlay)
-                user.add(location: location)
-                add(overlay: user.overlay)
-                //            print("Existing user is:")
-                //            print(user)
-                //            print("Number of locations: \(user.overlay.locations.count)")
-            } else {
-                let newUser = User(withId: user, atLocation: location)
-                users[user] = newUser
-                //            print("New user is:")
-                //            print(newUser)
-                add(overlay: newUser.overlay)
+            switch json["command"] {
+            case "location":
+                let user = UserID(json["user"].intValue)
+                let timestamp = TimeInterval(json["timestamp"].doubleValue)
+                let latitude = CLLocationDegrees(json["latitude"].doubleValue)
+                let longitude = CLLocationDegrees(json["longitude"].doubleValue)
+                let location = Location(timestamp: timestamp, latitude: latitude, longitude: longitude)
+                if let user = users[user] {
+                    remove(overlay: user.overlay)
+                    user.add(location: location)
+                    add(overlay: user.overlay)
+                    //            print("Existing user is:")
+                    //            print(user)
+                    //            print("Number of locations: \(user.overlay.locations.count)")
+                } else {
+                    let newUser = User(withId: user, atLocation: location)
+                    users[user] = newUser
+                    //            print("New user is:")
+                    //            print(newUser)
+                    add(overlay: newUser.overlay)
+                }
+                break
+            case "follow":
+                self.alert(title: "Follow Request", message: "\(json["followee_username"].stringValue) has requested to be followed. Do you accept?")
+                break
+            default:
+                break
             }
             break
         case .send_only:
