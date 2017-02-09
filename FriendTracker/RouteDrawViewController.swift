@@ -157,7 +157,15 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
                 }
                 break
             case "follow":
-                self.alert(title: "Follow Request", message: "\(json["followee_username"].stringValue) has requested to be followed. Do you accept?")
+                let followee_username = json["followee_username"]
+                let alert = UIAlertController(title: "Follow Request", message: "\(followee_username) has requested to be followed. Do you accept?", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Follow", style: UIAlertActionStyle.default, handler: {action in
+                    // Send follow accept to server.
+                }))
+                alert.addAction(UIAlertAction(title: "Don't Follow", style: UIAlertActionStyle.cancel, handler: {action in
+                    // Send follow reject to server.
+                }))
+                self.present(alert, animated: true, completion: nil)
                 break
             default:
                 break
