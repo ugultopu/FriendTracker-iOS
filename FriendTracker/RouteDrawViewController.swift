@@ -299,7 +299,7 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
 //                    self.alert(title: "Success", message: "Success.")
                     break
                 case "Follower already follows":
-                    self.alert(title: "Follower Already Follows", message: "This follower is already following you.")
+                    self.alert(title: "Follower Already Follows", message: "\(username) is already following you.")
                 case "Followee not found":
                     self.alert(title: "Followee not found", message: "Either you have entered a wrong username, or the user has not been found in database.")
                     break
