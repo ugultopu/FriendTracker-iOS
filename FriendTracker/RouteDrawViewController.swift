@@ -35,7 +35,7 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
     var users = [UserID: User]()
     var firstOverlay = true
     var connectionStatus = ConnectionStatus.connecting
-    var currentLocation = CLLocationCoordinate2D()
+    var currentLocation = Location(timestamp: 0, latitude: 0, longitude: 0)
     var pinnedLocations: [MKPointAnnotation] = []
     
     override func viewDidLoad() {
@@ -267,18 +267,29 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // TODO: Read the locations in a loop.
-        let currentLocationCoordinate = locations[0].coordinate
-        currentLocation = currentLocationCoordinate
-        //        print("Current location is: \(currentLocationCoordinate)")
-        let parameters: Parameters = [
-            "timestamp": NSDate().timeIntervalSince1970,
-            "latitude": currentLocationCoordinate.latitude,
-            "longitude": currentLocationCoordinate.longitude,
-            ]
-        let json = JSON(parameters)
-        //        print(json.rawString()!)
-        socket.write(string: json.rawString()!)
+        for location in locations {
+            let accuracy = location.horizontalAccuracy
+            if accuracy >= 0 {
+                let timestamp = Date().timeIntervalSince1970
+                let coordinate = location.coordinate
+                let latitude = coordinate.latitude
+                let longitude = coordinate.longitude
+                // FIXME Don't use a "magic number". Put the 5 (or another number) to a constant (or variable, or enum, etc.) and use this constant.
+                if accuracy <= 5 {
+                    self.currentLocation = Location(timestamp: timestamp, latitude: latitude, longitude: longitude)
+                }
+                //        print("Current location is: \(coordinate)")
+                let parameters: Parameters = [
+                    "timestamp": timestamp,
+                    "latitude": latitude,
+                    "longitude": longitude,
+                    "accuracy": accuracy
+                    ]
+                let json = JSON(parameters)
+                //        print(json.rawString()!)
+                socket.write(string: json.rawString()!)
+            }
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -324,30 +335,37 @@ class RouteDrawViewController: UIViewController, CLLocationManagerDelegate, MKMa
             let username = followTextField.text!
             follow(username: username)
         } else if `for` === pinLocationTextFieldValidator {
-            let parameters: Parameters = [
-                "command": "save",
-                "name": pinLocationTextField.text!,
-                "latitude": currentLocation.latitude,
-                "longitude": currentLocation.longitude,
-                ]
-            sessionManager.request("https://\(host):\(port)/location/ops/", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
-                switch response.result {
-                case .success(let data):
-                    let json = JSON(data)
-                    let status = json["status"]
-                    switch status {
-                    case "Success":
-                        //                    self.alert(title: "Success", message: "Success.")
-                        break
-                    default:
-                        self.alert(title: "Cannot save location", message: "Cannot save location due to an unkown reason")
+            let timestamp = Date().timeIntervalSince1970
+            // FIXME Don't use a "magic number". Put the 10 (or another number) to a constant (or variable, or enum, etc.) and use this constant.
+            if timestamp - currentLocation.timestamp > 10 {
+                self.alert(title: "Can't get location", message: "Cannot get current location")
+                return
+            } else {
+                let parameters: Parameters = [
+                    "command": "save",
+                    "name": pinLocationTextField.text!,
+                    "latitude": currentLocation.coordinate.latitude,
+                    "longitude": currentLocation.coordinate.longitude,
+                    ]
+                sessionManager.request("https://\(host):\(port)/location/ops/", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+                    switch response.result {
+                    case .success(let data):
+                        let json = JSON(data)
+                        let status = json["status"]
+                        switch status {
+                        case "Success":
+                            //                    self.alert(title: "Success", message: "Success.")
+                            break
+                        default:
+                            self.alert(title: "Cannot save location", message: "Cannot save location due to an unkown reason")
+                            break
+                        }
+                    case .failure(let error):
+                        // TODO: Handle error here
+                        self.alert(title: "Server Error", message: "The server has returned a non 200 response.")
+                        print(error)
                         break
                     }
-                case .failure(let error):
-                    // TODO: Handle error here
-                    self.alert(title: "Server Error", message: "The server has returned a non 200 response.")
-                    print(error)
-                    break
                 }
             }
         }
